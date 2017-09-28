@@ -1,0 +1,4 @@
+doit
+doit-py
+sphinx
+sphinxcontrib-plantuml
