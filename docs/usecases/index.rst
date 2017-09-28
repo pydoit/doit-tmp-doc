@@ -12,7 +12,7 @@ Simplify cumbersome command line calls
 
 Do you have to repeatedly call complex command like this?::
 
-    $ aws s3 sync . s3://bucket/path/dir --exclude "*" --include ".gif", --include "*.html"
+    $ aws s3 sync _built/html s3://buck/et --exclude "*" --include "*.html"
 
 
 Wrap it into `dodo.py` file::
@@ -20,14 +20,16 @@ Wrap it into `dodo.py` file::
     def task_publish():
       """Publish to AWS S3"""
       return {
-        "actions": 'aws s3 sync . s3://bucket/path/dir --exclude "*" --include ".gif", --include "*.html"'
+        "actions": [
+            'aws s3 sync _built/html s3://buck/et --exclude "*" --include "*.html"'
+        ]
       }
 
-and next time use doit call::
+and next time just::
 
     $ doit publish
 
-It is easy to include multiple actions into one task.
+It is easy to include multiple actions into one task or use multiple tasks.
 
 
 Automate typical project related actions
@@ -67,6 +69,17 @@ is more likely to be used.
 
 `dodo.py` will become easy to use prescription of best practices.
 
+Optimize processing time by skipping tasks already done
+=======================================================
+
+You dump your database and convert the data to CSV. It takes minutes,
+but often the input is the same as before. Why to do things already
+done and wait?
+
+Wrap the conversion into `doit` task and `doit` will automatically
+detect, the input and output are already in sync and complete in
+fraction of a second, when possible.
+
 Manage complex set of depending tasks
 =====================================
 
@@ -77,25 +90,19 @@ do the planning of what shall be processed first and what next.
 
 Your solution will be clean and modular.
 
-Optimize processing time by skipping already done things
-========================================================
-
-You dump your database and convert the data to CSV. It takes minutes,
-but often the input is the same as before. Why to do things already
-done and wait?
-
-Wrap the conversion into `doit` task and `doit` will automatically
-detect, the input and output are already in sync and complete in
-fraction of a second, when possible.
-
-Orchestrate complex data processing
+Speed up by parallel task execution
 ===================================
-You are supposed to regularly fetch data from three different sources,
-convert each fetched file to another format, merge them and publish.
+You already have bunch of tasks defined, results are correct, it only takes so
+much time. But wait, you have multicore machine!
 
-With doit you can write it in very modular way and even more gain some
-speed by not processing refetched file, if the content did not change
-since last time.
+Just ask for parallel processing::
+
+    $ doit -n 4
+
+and `doit` will take care of planning and make all your CPU cores hot.
+
+No need to rewrite your processing from scratch, properly declared tasks is all
+what you have to provide.
 
 Extend your project by doit features
 ====================================

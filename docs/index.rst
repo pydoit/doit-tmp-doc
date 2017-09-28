@@ -7,18 +7,37 @@
 You are welcome to `doit`
 =========================
 
-`doit` is **the python tool for stateful task processing** powered by:
+**tasks + {doit + shell + python} = done**
+==========================================
+::
 
-- nuclear power-plant within your **shell**
-- **python** batteries
-- **doit** processing engine
+    # dodo.py
+    def task_compress():
+        """Compress input file(s)"""
+        return {
+            "actions": [
+                "7z a %(targets)s %(dependencies)s",
+            ],
+            "file_dep": ["lauer.dat", "hardy.dat", "elephant.txt"],
+            "targets": ["bigarchive.7z"],
+            "clean": True
+        }
 
-People often compare doit to tools like `make`, `grunt` or `gulp` but they always appreciate:
+Set up and go::
+    
+    $ pip install doit
 
-- strong features and flexibility
-- simplicity of authoring and ease of use
-- python
+    $ doit list
+    compress    Compress input file(s)
 
+    $ doit
+    . compress
+
+    $ doit
+    -- compress
+
+    $ doit clean
+    compress - removing file 'bigarchive.7z'
 
 .. toctree::
    :maxdepth: 2
