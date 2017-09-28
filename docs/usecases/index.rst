@@ -47,7 +47,7 @@ Create the `dodo.py`, which defines tasks you have to do and next time::
     pypi              create/upload package to pypi
     spell             spell checker for doc files
     sphinx            build sphinx docs
-    tutorial_check    check tutorial sample are at least runnuable without error
+    tutorial_check    check tutorial sample are at least runnable without error
     ut                run unit-tests
     website           dodo file create website html files
     website_update    update website on SITE_PATH
@@ -59,7 +59,7 @@ and then decide which task to run::
 Share unified way of doing things
 =================================
 
-Do you expect your colleagues perform the same steps before commiting
+Do you expect your colleagues perform the same steps before committing
 changes to repository? What to do with the complains the steps are too complex?
 
 Provide them with the `dodo.py` file doing the things. What goes easy,
@@ -81,7 +81,7 @@ Optimize processing time by skipping already done things
 ========================================================
 
 You dump your database and convert the data to CSV. It takes minutes,
-but often the input is the same as before. Why to do things aleady
+but often the input is the same as before. Why to do things already
 done and wait?
 
 Wrap the conversion into `doit` task and `doit` will automatically
@@ -107,7 +107,7 @@ Create cross-platform tool for processing  your stuff
 =====================================================
 Do you have team members working on MS Windows and others on Linux?
 
-Scripts are great, but all those small shell differencies prevent
+Scripts are great, but all those small shell differences prevent
 single reusable solution.
 
 With `dodo.py` and python you are more likely to write the processing
