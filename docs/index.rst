@@ -7,11 +7,10 @@
 You are welcome to `doit`
 =========================
 
-**tasks + {doit + shell + python} = done**
-==========================================
-::
+tasks => {doit + shell + python} => done
+========================================
+Declare your task(s) in `dodo.py`::
 
-    # dodo.py
     def task_compress():
         """Compress input file(s)"""
         return {
@@ -23,20 +22,20 @@ You are welcome to `doit`
             "clean": True
         }
 
-Set up and go::
+Install `doit` and go::
     
     $ pip install doit
 
-    $ doit list
+    $ doit list  # see list of tasks with one-line helpstring
     compress    Compress input file(s)
 
-    $ doit
+    $ doit  # run all default tasks
     . compress
 
-    $ doit
+    $ doit  # skip doing tasks with results being already uptodate
     -- compress
 
-    $ doit clean
+    $ doit clean  # clean created files
     compress - removing file 'bigarchive.7z'
 
 .. toctree::
