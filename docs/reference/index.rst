@@ -9,6 +9,10 @@ Terms and definitions
 
 .. glossary::
 
+    dodo file
+        python file, usually named `dodo.py`, containing task definitions in
+        form of functions `task_*` which when called, return dictionaries with task declarations.
+
     action
         simple call of shell command or python function. Action can be parametrized and can calculate values usable in other tasks. Actions can be invoked only via tasks.
 
@@ -107,8 +111,24 @@ Following chart explains simplified task execution lifecycle.
     note right: only tasks not uptodate
     --> (*)
 
-`DOIT_CONFIG`
-=============
+Configuration options
+=====================
+Describe:
+- what can be configured
+
+  - doit commands
+  - tasks (mostly described separately)
+
+- configuration means
+
+  - `DOIT_CONFIG` global variable in dodo file
+  - configuration file `doit.cfg`
+  - environmental variables
+
+- what are priorities of configuration options
+
+`DOIT_CONFIG` global variable
+-----------------------------
 desribe all keys usable in `DOIT_CONFIG`
 
 - default_tasks
@@ -118,6 +138,22 @@ desribe all keys usable in `DOIT_CONFIG`
 - verbosity
 - reporter
 - minversion
+
+`doit.cfg` configuration file
+-----------------------------
+Describe:
+- where is the file looked for (current directory?)
+- general concept, how are variables named and located
+- exhaustive list of all sections and options.
+
+Configuration using environmental variables
+-------------------------------------------
+
+What environmantal variables can be used.
+
+Configuration on task level
+---------------------------
+In general these options are described elsewhere.
 
 `dodo.py` file
 ==============
