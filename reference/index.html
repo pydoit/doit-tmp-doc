@@ -1,0 +1,437 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Reference Manual &#8212; doit 0.30.3 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.30.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Howtos" href="../howtos/index.html" />
+    <link rel="prev" title="Concepts" href="../concepts/index.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="reference-manual">
+<h1>Reference Manual<a class="headerlink" href="#reference-manual" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">list of topics to cover here is still not complete.</p>
+</div>
+<div class="section" id="terms-and-definitions">
+<h2>Terms and definitions<a class="headerlink" href="#terms-and-definitions" title="Permalink to this headline">¶</a></h2>
+<dl class="glossary docutils">
+<dt id="term-dodo-file">dodo file</dt>
+<dd>python file, usually named <cite>dodo.py</cite>, containing task definitions in
+form of functions <cite>task_*</cite> which when called, return dictionaries with task declarations.</dd>
+<dt id="term-action">action</dt>
+<dd>simple call of shell command or python function. Action can be parametrized and can calculate values usable in other tasks. Actions can be invoked only via tasks.</dd>
+<dt id="term-task">task</dt>
+<dd>invokable named set of actions and other tasks metadata (required inputs, created outputs, clear behaviour…)</dd>
+<dt id="term-subtask">subtask</dt>
+<dd>task with parametrized name</dd>
+<dt id="term-task-declaration">task declaration</dt>
+<dd>the act of providing dictionary of the task metadata.</dd>
+<dt id="term-target">target</dt>
+<dd>a file, which can be created by a task.</dd>
+<dt id="term-stateful-file">(stateful) file</dt>
+<dd>any file mentioned in a task declaration as file_dep (task input) or target (task output). doit keeps track of file existency and state (by default using MD5 checksum) between invocations.</dd>
+<dt id="term-file-dependency">file dependency</dt>
+<dd>dependency of a file on another one(s). All files in task target are dependent on files in the task “file_dep”.</dd>
+<dt id="term-task-dependency">task dependency</dt>
+<dd>dependency of one task on another one(s). Explicit task dependency is set by “task_dep” in task declaration. Each task is implicitly dependent via file dependency, thus the task is dependent on all tasks creating files mentioned in it’s “file_dep”.</dd>
+<dt id="term-task-uptodate-evaluation">task uptodate evaluation</dt>
+<dd>the act of evaluating all (explicit and implicit) task dependencies and task uptodate rules with aim to recognize that the task as a whole is uptodate or not.</dd>
+<dt id="term-task-execution">task execution</dt>
+<dd>the act of executing all actions of a task.</dd>
+<dt id="term-task-collection">task collection</dt>
+<dd>the act of collecting all task declarations with aim to get list of invocable tasks and targets.</dd>
+<dt id="term-invokable-target">invokable target</dt>
+<dd>the fact, that name of any of files specified in a task’s “targets” can be used to invoke the task. Each file from “targets” is invokable.</dd>
+<dt id="term-python-action">python-action</dt>
+<dd>action defined by means of python function and optionally positional and keyword arguments.</dd>
+<dt id="term-cmd-action">cmd-action</dt>
+<dd>action invoked via shell.</dd>
+<dt id="term-cmd-action-string">cmd-action string</dt>
+<dd>cmd-action defined as single string which is supposed to be invoked via shell.</dd>
+<dt id="term-cmd-action-list">cmd-action list</dt>
+<dd>cmd-action defined as list of strings and pathlib file names representing shell command arguments. The cmd-action list is invoked in one shell call.</dd>
+<dt id="term-task-main-actions">(task) main actions</dt>
+<dd>actions mentioned in task declaration under key “actions”, defining the activity creating task results.</dd>
+<dt id="term-task-clean-actions">(task) clean actions</dt>
+<dd>actions mentioned in task declaration under key “clean”, defining the activity cleaning task results.</dd>
+<dt id="term-task-uptodate-actions">(task) uptodate actions</dt>
+<dd>actions mentioned in task declaration under key “uptodate”, defining the activity determining, if the task is uptodate.</dd>
+<dt id="term-result-database">result database</dt>
+<dd>database persisting status of last task execution incl. files from all “file_dep” and “targets” lists.</dd>
+<dt id="term-db-backend">DB-backend</dt>
+<dd>specific technology used to serialize data in result database.</dd>
+<dt id="term-command-run">command run</dt>
+<dd>doit subcommand used to invoke main task actions</dd>
+<dt id="term-command-clean">command clean</dt>
+<dd>doit subcommand used to invoke clean task actions</dd>
+<dt id="term-command-list">command list</dt>
+<dd>doit subcommand used to list avaialble tasks and subtasks</dd>
+<dt id="term-command-ignore">command ignore</dt>
+<dd>doit subcommand used to temporarily disable check of a task results.</dd>
+<dt id="term-command-forget">command forget</dt>
+<dd>doit subcommand used to remove temporarily disabled check of a task results.</dd>
+</dl>
+</div>
+<div class="section" id="task-execution-life-cycle">
+<h2>Task execution life-cycle<a class="headerlink" href="#task-execution-life-cycle" title="Permalink to this headline">¶</a></h2>
+<p>Following chart explains simplified task execution lifecycle.</p>
+<div class="figure align-center" id="id1">
+<p class="caption"><span class="caption-text">Task execution life-cycle</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="configuration-options">
+<h2>Configuration options<a class="headerlink" href="#configuration-options" title="Permalink to this headline">¶</a></h2>
+<p>Describe:
+- what can be configured</p>
+<blockquote>
+<div><ul class="simple">
+<li>doit commands</li>
+<li>tasks (mostly described separately)</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>configuration means<ul>
+<li><cite>DOIT_CONFIG</cite> global variable in dodo file</li>
+<li>configuration file <cite>doit.cfg</cite></li>
+<li>environmental variables</li>
+</ul>
+</li>
+<li>what are priorities of configuration options</li>
+</ul>
+<div class="section" id="doit-config-global-variable">
+<h3><cite>DOIT_CONFIG</cite> global variable<a class="headerlink" href="#doit-config-global-variable" title="Permalink to this headline">¶</a></h3>
+<p>desribe all keys usable in <cite>DOIT_CONFIG</cite></p>
+<ul class="simple">
+<li>default_tasks</li>
+<li>check_file_uptodate (custom file uptodate checker)</li>
+<li>backend</li>
+<li>dep_file</li>
+<li>verbosity</li>
+<li>reporter</li>
+<li>minversion</li>
+</ul>
+</div>
+<div class="section" id="doit-cfg-configuration-file">
+<h3><cite>doit.cfg</cite> configuration file<a class="headerlink" href="#doit-cfg-configuration-file" title="Permalink to this headline">¶</a></h3>
+<p>Describe:
+- where is the file looked for (current directory?)
+- general concept, how are variables named and located
+- exhaustive list of all sections and options.</p>
+</div>
+<div class="section" id="configuration-using-environmental-variables">
+<h3>Configuration using environmental variables<a class="headerlink" href="#configuration-using-environmental-variables" title="Permalink to this headline">¶</a></h3>
+<p>What environmantal variables can be used.</p>
+</div>
+<div class="section" id="configuration-on-task-level">
+<h3>Configuration on task level<a class="headerlink" href="#configuration-on-task-level" title="Permalink to this headline">¶</a></h3>
+<p>In general these options are described elsewhere.</p>
+</div>
+</div>
+<div class="section" id="dodo-py-file">
+<h2><cite>dodo.py</cite> file<a class="headerlink" href="#dodo-py-file" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>it is the default file from which <cite>doit</cite> loads task definitions.</li>
+<li>can have another name, then <cite>doit</cite> must explicitly set it via <cite>-f</cite> option.</li>
+</ul>
+</div>
+<div class="section" id="action-definitions">
+<h2>action definitions<a class="headerlink" href="#action-definitions" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>cmd-action as string<ul>
+<li>simple string (no interpolation)</li>
+<li>string with interpolated kwargs</li>
+<li><cite>CmdAction(cmd_string_builder_fun)</cite><ul>
+<li>without any argument</li>
+<li>with kwargs (dependencies, changed, targets plus custom ones)</li>
+</ul>
+</li>
+<li>parsed cmd-action (cmd-action as string)</li>
+</ul>
+</li>
+<li>python-action<ul>
+<li>just function name (no explicit kwargs)<ul>
+<li>not using implicit kwargs</li>
+<li>using implicit kwargs</li>
+</ul>
+</li>
+<li>function name with args and kwargs<ul>
+<li>not using implicit kwargs</li>
+<li>using implicit kwargs</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="actions-calculating-values">
+<h2>actions calculating values<a class="headerlink" href="#actions-calculating-values" title="Permalink to this headline">¶</a></h2>
+<p>Actions can calculate values usable by other tasks.</p>
+<ul class="simple">
+<li>how to calculate and store value by python-action</li>
+<li>how to calculate and store value by cmd-action (<cite>CmdAction</cite> with <cite>save_out</cite>)</li>
+</ul>
+</div>
+<div class="section" id="getargs-read-values-calculated-by-other-tasks">
+<h2>getargs: read values calculated by other tasks<a class="headerlink" href="#getargs-read-values-calculated-by-other-tasks" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="action-usage-scenarios">
+<h2>action usage scenarios<a class="headerlink" href="#action-usage-scenarios" title="Permalink to this headline">¶</a></h2>
+<p>When can be actions used:</p>
+<ul class="simple">
+<li>main actions</li>
+<li>clean actions</li>
+<li>uptodate actions</li>
+<li>??? some more?</li>
+</ul>
+</div>
+<div class="section" id="doit-invocation">
+<h2><cite>doit</cite> invocation<a class="headerlink" href="#doit-invocation" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><cite>doit</cite> cli</li>
+<li><cite>$ python -m doit</cite></li>
+<li>from iPython</li>
+<li>embed into another python code</li>
+</ul>
+<div class="admonition-todo admonition" id="index-1">
+<p class="first admonition-title">Todo</p>
+<p class="last">Elaborate on it</p>
+</div>
+</div>
+<div class="section" id="doit-command-line-interface">
+<h2><cite>doit</cite> command line interface<a class="headerlink" href="#doit-command-line-interface" title="Permalink to this headline">¶</a></h2>
+<div class="admonition-todo admonition" id="index-2">
+<p class="first admonition-title">Todo</p>
+<p class="last">Elaborate on it</p>
+</div>
+</div>
+<div class="section" id="task-declaration-parameters">
+<h2>Task declaration parameters<a class="headerlink" href="#task-declaration-parameters" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>name</li>
+<li>basename</li>
+<li>actions</li>
+<li>file_dep</li>
+<li>targets</li>
+<li>task_dep</li>
+<li>clean</li>
+<li>uptodate</li>
+<li>title</li>
+<li>doc</li>
+<li>verbosity</li>
+</ul>
+</div>
+<div class="section" id="task-names">
+<h2>Task names<a class="headerlink" href="#task-names" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>explicit task name</li>
+<li>sub-task name</li>
+<li>implicit task via target reference</li>
+<li>private/hidden tasks</li>
+</ul>
+</div>
+<div class="section" id="task-selection">
+<h2>Task selection<a class="headerlink" href="#task-selection" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>default tasks</li>
+<li>DOIT_CONFIG[“default_tasks”]</li>
+<li>multiple task selection by list</li>
+<li>multiple task selection by wildcard</li>
+<li>indirect selection via task dependency</li>
+</ul>
+</div>
+<div class="section" id="task-dependencies">
+<h2>Task dependencies<a class="headerlink" href="#task-dependencies" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>file dependency
+- default MD5 checksum
+- custom file status calculation</li>
+<li>explicit task dependency</li>
+</ul>
+</div>
+<div class="section" id="task-uptodate-status">
+<h2>Task uptodate status<a class="headerlink" href="#task-uptodate-status" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">when is task uptodate (rules to determine it)
+- all following conditions must be true</p>
+<blockquote>
+<div><ul class="simple">
+<li>each file from file_dep is uptodate at the moment of task evaluation</li>
+<li>each file from targets is uptodate (last execution was succesful)</li>
+<li>calculated uptodate is “OK”</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">calculating file uptodate status</p>
+</li>
+<li><p class="first">calculating task uptodate status</p>
+<blockquote>
+<div><ul class="simple">
+<li>all file_dep are uptodate</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="complex-dependency-options">
+<h2>Complex dependency options<a class="headerlink" href="#complex-dependency-options" title="Permalink to this headline">¶</a></h2>
+<div class="admonition-todo admonition" id="index-3">
+<p class="first admonition-title">Todo</p>
+<p class="last">explain, tasks can be declared also later on during execution.</p>
+</div>
+</div>
+<div class="section" id="reporter-reporting-progress-and-result">
+<h2>reporter: reporting progress and result<a class="headerlink" href="#reporter-reporting-progress-and-result" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>explain existing options</li>
+<li>refer to customization where custom reporter can be defined</li>
+</ul>
+</div>
+<div class="section" id="db-backend">
+<h2>DB-Backend<a class="headerlink" href="#db-backend" title="Permalink to this headline">¶</a></h2>
+<div class="admonition-todo admonition" id="index-4">
+<p class="first admonition-title">Todo</p>
+<p class="last">purpose, formats, how to extend.</p>
+</div>
+</div>
+<div class="section" id="doit-customization">
+<h2><cite>doit</cite> customization<a class="headerlink" href="#doit-customization" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>embed into your own product</li>
+<li>implement custom DB-Backend</li>
+<li>develop plugins/libraries</li>
+<li>custom reporter</li>
+</ul>
+</div>
+<div class="section" id="tools-embeded-in-doit">
+<h2>Tools embeded in <cite>doit</cite><a class="headerlink" href="#tools-embeded-in-doit" title="Permalink to this headline">¶</a></h2>
+<p>There are tools, which are not essential to core of <cite>doit</cite> processing engine, but come very often
+handy. For that reason they are included in <cite>doit</cite>.</p>
+<div class="admonition-todo admonition" id="index-5">
+<p class="first admonition-title">Todo</p>
+<p class="last">mostly the <a class="reference external" href="http://pydoit.org/tools.html">http://pydoit.org/tools.html</a> stuff</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">doit</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../usecases/index.html">Use Cases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/index.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">Concepts</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Reference Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#terms-and-definitions">Terms and definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#task-execution-life-cycle">Task execution life-cycle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configuration-options">Configuration options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dodo-py-file"><cite>dodo.py</cite> file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#action-definitions">action definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#actions-calculating-values">actions calculating values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#getargs-read-values-calculated-by-other-tasks">getargs: read values calculated by other tasks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#action-usage-scenarios">action usage scenarios</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#doit-invocation"><cite>doit</cite> invocation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#doit-command-line-interface"><cite>doit</cite> command line interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#task-declaration-parameters">Task declaration parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#task-names">Task names</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#task-selection">Task selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#task-dependencies">Task dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#task-uptodate-status">Task uptodate status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#complex-dependency-options">Complex dependency options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#reporter-reporting-progress-and-result">reporter: reporting progress and result</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#db-backend">DB-Backend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#doit-customization"><cite>doit</cite> customization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tools-embeded-in-doit">Tools embeded in <cite>doit</cite></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos/index.html">Howtos</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="../concepts/index.html" title="previous chapter">Concepts</a></li>
+      <li>Next: <a href="../howtos/index.html" title="next chapter">Howtos</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Jan Vlčinský.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/reference/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

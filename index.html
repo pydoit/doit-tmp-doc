@@ -1,0 +1,205 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>You are welcome to doit &#8212; doit 0.30.3 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.30.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Use Cases" href="usecases/index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="you-are-welcome-to-doit">
+<h1>You are welcome to <cite>doit</cite><a class="headerlink" href="#you-are-welcome-to-doit" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="tasks-doit-shell-python-done">
+<h2>tasks =&gt; {doit + shell + python} =&gt; done<a class="headerlink" href="#tasks-doit-shell-python-done" title="Permalink to this headline">¶</a></h2>
+<p>Declare your task(s) in <cite>dodo.py</cite>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">task_compress</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Compress input file(s)&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;actions&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;7z a </span><span class="si">%(targets)s</span><span class="s2"> </span><span class="si">%(dependencies)s</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;file_dep&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;lauer.dat&quot;</span><span class="p">,</span> <span class="s2">&quot;hardy.dat&quot;</span><span class="p">,</span> <span class="s2">&quot;elephant.txt&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;targets&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;bigarchive.7z&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;clean&quot;</span><span class="p">:</span> <span class="kc">True</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+<p>Install <cite>doit</cite> and go:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ pip install doit
+
+$ doit list  # see list of tasks with one-line helpstring
+compress    Compress input file(s)
+
+$ doit  # run all default tasks
+. compress
+
+$ doit  # skip doing tasks with results being already uptodate
+-- compress
+
+$ doit clean  # clean created files
+compress - removing file &#39;bigarchive.7z&#39;
+</pre></div>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Table of Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="usecases/index.html">Use Cases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="usecases/index.html#simplify-cumbersome-command-line-calls">Simplify cumbersome command line calls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usecases/index.html#automate-typical-project-related-actions">Automate typical project related actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usecases/index.html#share-unified-way-of-doing-things">Share unified way of doing things</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usecases/index.html#optimize-processing-time-by-skipping-tasks-already-done">Optimize processing time by skipping tasks already done</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usecases/index.html#manage-complex-set-of-depending-tasks">Manage complex set of depending tasks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usecases/index.html#speed-up-by-parallel-task-execution">Speed up by parallel task execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usecases/index.html#extend-your-project-by-doit-features">Extend your project by doit features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usecases/index.html#create-cross-platform-tool-for-processing-your-stuff">Create cross-platform tool for processing  your stuff</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart/index.html">Quick Start</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart/index.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart/index.html#deploy-power-of-your-shell-commands">Deploy power of your shell commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart/index.html#parametrize-name-of-target-file">Parametrize name of target file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart/index.html#who-is-going-to-clean-that">Who is going to clean that?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart/index.html#speed-up-by-skipping-already-done">Speed up by skipping already done</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart/index.html#assembling-mammuth-piece-by-piece">Assembling mammuth piece by piece</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart/index.html#python-defined-actions">Python defined actions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts/index.html">Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference/index.html">Reference Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="reference/index.html#terms-and-definitions">Terms and definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/index.html#task-execution-life-cycle">Task execution life-cycle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/index.html#configuration-options">Configuration options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/index.html#dodo-py-file"><cite>dodo.py</cite> file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/index.html#action-definitions">action definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/index.html#actions-calculating-values">actions calculating values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/index.html#getargs-read-values-calculated-by-other-tasks">getargs: read values calculated by other tasks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/index.html#action-usage-scenarios">action usage scenarios</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/index.html#doit-invocation"><cite>doit</cite> invocation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/index.html#doit-command-line-interface"><cite>doit</cite> command line interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/index.html#task-declaration-parameters">Task declaration parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/index.html#task-names">Task names</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/index.html#task-selection">Task selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/index.html#task-dependencies">Task dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/index.html#task-uptodate-status">Task uptodate status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/index.html#complex-dependency-options">Complex dependency options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/index.html#reporter-reporting-progress-and-result">reporter: reporting progress and result</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/index.html#db-backend">DB-Backend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/index.html#doit-customization"><cite>doit</cite> customization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/index.html#tools-embeded-in-doit">Tools embeded in <cite>doit</cite></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="howtos/index.html">Howtos</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="howtos/index.html#planning-dodo-py">Planning <cite>dodo.py</cite></a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h2>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="#">doit</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Table of Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="usecases/index.html">Use Cases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart/index.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts/index.html">Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference/index.html">Reference Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="howtos/index.html">Howtos</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+      <li>Next: <a href="usecases/index.html" title="next chapter">Use Cases</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Jan Vlčinský.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

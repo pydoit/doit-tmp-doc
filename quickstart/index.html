@@ -1,0 +1,408 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Quick Start &#8212; doit 0.30.3 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.30.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Tutorials" href="../tutorials/index.html" />
+    <link rel="prev" title="Use Cases" href="../usecases/index.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="quick-start">
+<h1>Quick Start<a class="headerlink" href="#quick-start" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>Latest version of <cite>doit</cite> requires python 3.4 and newer.</p>
+<p>Install via pip (best into activated virtualenv):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ pip install doit
+</pre></div>
+</div>
+<p>and test version:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ doit --version
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>For Python 2.7 use:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ pip install doit==0.29.0
+</pre></div>
+</div>
+<p class="last">Advanced parts of this doc may break in Python 2.7.</p>
+</div>
+</div>
+<div class="section" id="deploy-power-of-your-shell-commands">
+<h2>Deploy power of your shell commands<a class="headerlink" href="#deploy-power-of-your-shell-commands" title="Permalink to this headline">¶</a></h2>
+<p>To make our example easy to run on Windows as well as on Linux, we will use
+command <cite>echo</cite> redirecting some text into a file:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ echo welcome &gt; file.txt
+$ echo dear user &gt;&gt; file.txt
+$ echo enjoy powers of doit &gt;&gt; file.txt
+</pre></div>
+</div>
+<p>If you used the <cite>&gt;</cite> (overwrite) and <cite>&gt;&gt;</cite> (append) properly, the <cite>file.txt</cite>
+shall now have lines:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">welcome</span>
+<span class="n">dear</span> <span class="n">user</span>
+<span class="n">enjoy</span> <span class="n">powers</span> <span class="n">of</span> <span class="n">doit</span>
+</pre></div>
+</div>
+<p>Let’s do something similar by <cite>doit</cite>. Create file <cite>dodo.py</cite>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">task_echo_to_cave</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Call holla to cave.txt&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;actions&quot;</span><span class="p">:</span> <span class="p">[</span>
+             <span class="s2">&quot;echo pssst &gt; cave.txt&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;echo holla &gt;&gt; cave.txt&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;echo olla &gt;&gt; cave.txt&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;echo lla &gt;&gt; cave.txt&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;echo la &gt;&gt; cave.txt&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;echo a &gt;&gt; cave.txt&quot;</span><span class="p">,</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+<p>The function <cite>task_echo_to_cave</cite> declares the task “echo_to_cave” by means of
+returning dictionary with task metadata. The keyword <cite>“actions”</cite> here simply
+lists shell commands to call.</p>
+<p>First, list all tasks defined in <cite>dodo.py</cite> file by:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ doit list
+echo_to_cave   Call holla to cave.txt
+</pre></div>
+</div>
+<p>File <cite>cave.txt</cite> was not created yet as the task was only listed.</p>
+<p>Let’s execute it by:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ doit run echo_to_cave
+. echo_to_cave
+</pre></div>
+</div>
+<p>The command reported the task run and executed it.</p>
+<p>Check content of the file <cite>cave.txt</cite>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pssst</span>
+<span class="n">holla</span>
+<span class="n">olla</span>
+<span class="n">lla</span>
+<span class="n">la</span>
+<span class="n">a</span>
+</pre></div>
+</div>
+<p>Delete the file <cite>cave.txt</cite> manually and execute the command again but do not
+add any <cite>run</cite> or task name:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ doit
+. echo_to_cave
+</pre></div>
+</div>
+<p>By default, <cite>doit</cite> runs all default tasks.</p>
+<p>The file <cite>cave.txt</cite> shall be again present and shall have the same content as before.</p>
+</div>
+<div class="section" id="parametrize-name-of-target-file">
+<h2>Parametrize name of target file<a class="headerlink" href="#parametrize-name-of-target-file" title="Permalink to this headline">¶</a></h2>
+<p>Hardcoded file names are not always practical. Let’s add <cite>“targets”</cite> keyword into task
+declaration and provide it with list of target files names, in this case just one.</p>
+<p>Also modify the string to be echoed (adding “parametrized”) to see our fingerprint in the new result.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">task_echo_to_cave</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Call holla to PARAMETRIZED target file&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;actions&quot;</span><span class="p">:</span> <span class="p">[</span>
+             <span class="s2">&quot;echo parametrized pssst &gt; </span><span class="si">%(targets)s</span><span class="s2">&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;echo parametrized holla &gt;&gt; </span><span class="si">%(targets)s</span><span class="s2">&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;echo parametrized olla &gt;&gt; </span><span class="si">%(targets)s</span><span class="s2">&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;echo parametrized lla &gt;&gt; </span><span class="si">%(targets)s</span><span class="s2">&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;echo parametrized la &gt;&gt; </span><span class="si">%(targets)s</span><span class="s2">&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;echo parametrized a &gt;&gt; </span><span class="si">%(targets)s</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;targets&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;cave.txt&quot;</span><span class="p">]</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+<p>Call:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ doit
+. echo_to_cave
+</pre></div>
+</div>
+<p>Checking content of the <cite>cave.txt</cite> we shall see:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">parametrized</span> <span class="n">pssst</span>
+<span class="n">parametrized</span> <span class="n">holla</span>
+<span class="n">parametrized</span> <span class="n">olla</span>
+<span class="n">parametrized</span> <span class="n">lla</span>
+<span class="n">parametrized</span> <span class="n">la</span>
+<span class="n">parametrized</span> <span class="n">a</span>
+</pre></div>
+</div>
+<p>The string of <cite>cmd-action</cite> is (always) interpolated with keyword <cite>targets</cite> (there are
+more such keywords). The value for <cite>targets</cite> is takes from task declaration and provided as space
+delimited list of file names (so it is single string).</p>
+</div>
+<div class="section" id="who-is-going-to-clean-that">
+<h2>Who is going to clean that?<a class="headerlink" href="#who-is-going-to-clean-that" title="Permalink to this headline">¶</a></h2>
+<p>Manually deleting files we have created is no fun (imagine you created tens of such files).</p>
+<p><cite>doit</cite> is ready to clean the mess for you. Simply add <cite>“clean”</cite> keyword to task declaration and
+provide it with value <cite>True</cite>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">task_echo_to_cave</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Call holla to PARAMETRIZED target file&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;actions&quot;</span><span class="p">:</span> <span class="p">[</span>
+             <span class="s2">&quot;echo parametrized pssst &gt; </span><span class="si">%(targets)s</span><span class="s2">&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;echo parametrized holla &gt;&gt; </span><span class="si">%(targets)s</span><span class="s2">&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;echo parametrized olla &gt;&gt; </span><span class="si">%(targets)s</span><span class="s2">&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;echo parametrized lla &gt;&gt; </span><span class="si">%(targets)s</span><span class="s2">&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;echo parametrized la &gt;&gt; </span><span class="si">%(targets)s</span><span class="s2">&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;echo parametrized a &gt;&gt; </span><span class="si">%(targets)s</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;targets&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;cave.txt&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;clean&quot;</span><span class="p">:</span> <span class="kc">True</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+<p>This time ask <cite>doit</cite> to do the cleaning work:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ doit clean
+echo_to_cave - removing file &#39;cave.txt&#39;
+</pre></div>
+</div>
+<p>The file <cite>cave.txt</cite> shall be removed now.</p>
+<p>Repeating the last (cleaning) command will not do anything.</p>
+<p>Try running the main actions of task <cite>echo_to_cave</cite> again and check, all still works as expected.</p>
+</div>
+<div class="section" id="speed-up-by-skipping-already-done">
+<h2>Speed up by skipping already done<a class="headerlink" href="#speed-up-by-skipping-already-done" title="Permalink to this headline">¶</a></h2>
+<p>Its time to do something real. We will need command <cite>7z</cite> installed in our system. Feel free
+to modify this example with your favourite archiving command.</p>
+<p>The plan is to automate compressing huge file in such a way, it recreates the archive only when the
+source file or target archive has changed.</p>
+<p>We will need a file to compress. Best is to use a file, which takes at least few
+seconds to compress. Put it into current directory and call it <cite>huge.dat</cite>.</p>
+<p>Use <cite>7z</cite> command <cite>a</cite> (add to archive):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ 7z a huge.compressed.7z huge.dat
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=cs_CZ.UTF-8,Utf16=on,HugeFiles=on,4 CPUs)
+Scanning
+
+Creating archive huge.compressed.7z
+
+Compressing  huge.dat
+
+Everything is Ok
+</pre></div>
+</div>
+<p>File <cite>huge.compressed.7z</cite> shall be now present in our directory.</p>
+<p>It’s time for automation. Create <cite>dodo.py</cite>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">task_compress</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Compress input file(s)&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;actions&quot;</span><span class="p">:</span> <span class="p">[</span>
+             <span class="s2">&quot;7z a </span><span class="si">%(targets)s</span><span class="s2"> </span><span class="si">%(dependencies)s</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;file_dep&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;huge.dat&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;targets&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;huge.compressed.7z&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;clean&quot;</span><span class="p">:</span> <span class="kc">True</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+<p>Remove the <cite>huge.compressed.7z</cite>.</p>
+<p>First list the commands available:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ doit list
+compress   Compress input file(s)
+</pre></div>
+</div>
+<p>and then run it:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ doit
+.  compress
+</pre></div>
+</div>
+<p>The archive file shall be created now.</p>
+<p>Ask <cite>doit</cite> to do the work again:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ doit
+-- compress
+</pre></div>
+</div>
+<p>Almost zero execution time and <cite>“–”</cite> in front of task name (instead of <cite>“.”</cite>) tell us, <cite>doit</cite> saw
+no need to repeat the task, whose results are already uptodate.</p>
+<p>This will hold true as long as content of input and output files do not change (checked by MD5
+checksum).</p>
+</div>
+<div class="section" id="assembling-mammuth-piece-by-piece">
+<h2>Assembling mammuth piece by piece<a class="headerlink" href="#assembling-mammuth-piece-by-piece" title="Permalink to this headline">¶</a></h2>
+<p>Real tasks are complex. With <cite>doit</cite>, things can be split to smaller tasks and
+executed step by step until required result is completed.</p>
+<p>Following example takes one existing file <cite>huge.dat</cite>, creates another two (<cite>python.help</cite> and
+<cite>doit.help</cite>) and finally creates <cite>result.7z</cite> containing all three compressed.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">task_python_help</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Write python help string to a file&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;actions&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;python -h &gt; </span><span class="si">%(targets)s</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;targets&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;python.help&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;clean&quot;</span><span class="p">:</span> <span class="kc">True</span>
+    <span class="p">}</span>
+
+
+<span class="k">def</span> <span class="nf">task_doit_help</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Write doit help string to a file&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;actions&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;doit help &gt; </span><span class="si">%(targets)s</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;targets&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;doit.help&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;clean&quot;</span><span class="p">:</span> <span class="kc">True</span>
+    <span class="p">}</span>
+
+
+<span class="k">def</span> <span class="nf">task_compress</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Compress input file(s)&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;actions&quot;</span><span class="p">:</span> <span class="p">[</span>
+             <span class="s2">&quot;7z a </span><span class="si">%(targets)s</span><span class="s2"> </span><span class="si">%(dependencies)s</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;file_dep&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;huge.dat&quot;</span><span class="p">,</span> <span class="s2">&quot;python.help&quot;</span><span class="p">,</span> <span class="s2">&quot;doit.help&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;targets&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;result.7z&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;clean&quot;</span><span class="p">:</span> <span class="kc">True</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+<p>File dependencies are clearly defined, tasks are well documented:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ doit list
+compress      Compress input file(s)
+doit_help     Write doit help string to a file
+python_help   Write python help string to a file
+</pre></div>
+</div>
+<p>tasks are run when needed:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ doit
+.  python_help
+.  doit_help
+.  compress
+</pre></div>
+</div>
+<p>processing is optimized and run only when necessary:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ doit
+.  python_help
+.  doit_help
+-- compress
+</pre></div>
+</div>
+<p>and to clean is easy:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ doit clean
+compress - removing file &#39;result.7z&#39;
+doit_help - removing file &#39;doit.help&#39;
+python_help - removing file &#39;python.help&#39;
+</pre></div>
+</div>
+<p>If you wonder why tasks <cite>python_help</cite> and <cite>doit_help</cite> are always rerun, the reason is, these tasks
+do not have “file_dep” so they are always considered outdated.</p>
+</div>
+<div class="section" id="python-defined-actions">
+<h2>Python defined actions<a class="headerlink" href="#python-defined-actions" title="Permalink to this headline">¶</a></h2>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">show python actions in action</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">doit</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../usecases/index.html">Use Cases</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Quick Start</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#deploy-power-of-your-shell-commands">Deploy power of your shell commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#parametrize-name-of-target-file">Parametrize name of target file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#who-is-going-to-clean-that">Who is going to clean that?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#speed-up-by-skipping-already-done">Speed up by skipping already done</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#assembling-mammuth-piece-by-piece">Assembling mammuth piece by piece</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#python-defined-actions">Python defined actions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos/index.html">Howtos</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="../usecases/index.html" title="previous chapter">Use Cases</a></li>
+      <li>Next: <a href="../tutorials/index.html" title="next chapter">Tutorials</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Jan Vlčinský.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/quickstart/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,224 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Use Cases &#8212; doit 0.30.3 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.30.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Quick Start" href="../quickstart/index.html" />
+    <link rel="prev" title="You are welcome to doit" href="../index.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="use-cases">
+<h1>Use Cases<a class="headerlink" href="#use-cases" title="Permalink to this headline">¶</a></h1>
+<p>Here are some use cases, where <cite>doit</cite> can help you with automation of your tasks.</p>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">later add links to related tutorials and howtos. But be careful not to distract too much.</p>
+</div>
+<div class="section" id="simplify-cumbersome-command-line-calls">
+<h2>Simplify cumbersome command line calls<a class="headerlink" href="#simplify-cumbersome-command-line-calls" title="Permalink to this headline">¶</a></h2>
+<p>Do you have to repeatedly call complex command like this?:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ aws s3 sync _built/html s3://buck/et --exclude &quot;*&quot; --include &quot;*.html&quot;
+</pre></div>
+</div>
+<p>Wrap it into <cite>dodo.py</cite> file:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">task_publish</span><span class="p">():</span>
+  <span class="sd">&quot;&quot;&quot;Publish to AWS S3&quot;&quot;&quot;</span>
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="s2">&quot;actions&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s1">&#39;aws s3 sync _built/html s3://buck/et --exclude &quot;*&quot; --include &quot;*.html&quot;&#39;</span>
+    <span class="p">]</span>
+  <span class="p">}</span>
+</pre></div>
+</div>
+<p>and next time just:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ doit publish
+</pre></div>
+</div>
+<p>It is easy to include multiple actions into one task or use multiple tasks.</p>
+</div>
+<div class="section" id="automate-typical-project-related-actions">
+<h2>Automate typical project related actions<a class="headerlink" href="#automate-typical-project-related-actions" title="Permalink to this headline">¶</a></h2>
+<p>Do you have to lint your code, run test suite, evaluate coverage,
+generate documentation incl. spelling?</p>
+<p>Create the <cite>dodo.py</cite>, which defines tasks you have to do and next time:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ doit list
+coverage          show coverage for all modules including tests
+coverage_module   show coverage for individual modules
+coverage_src      show coverage for all modules (exclude tests)
+package           create/upload package to pypi
+pyflakes
+pypi              create/upload package to pypi
+spell             spell checker for doc files
+sphinx            build sphinx docs
+tutorial_check    check tutorial sample are at least runnable without error
+ut                run unit-tests
+website           dodo file create website html files
+website_update    update website on SITE_PATH
+</pre></div>
+</div>
+<p>and then decide which task to run:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ doit spell
+</pre></div>
+</div>
+</div>
+<div class="section" id="share-unified-way-of-doing-things">
+<h2>Share unified way of doing things<a class="headerlink" href="#share-unified-way-of-doing-things" title="Permalink to this headline">¶</a></h2>
+<p>Do you expect your colleagues perform the same steps before committing
+changes to repository? What to do with the complains the steps are too complex?</p>
+<p>Provide them with the <cite>dodo.py</cite> file doing the things. What goes easy,
+is more likely to be used.</p>
+<p><cite>dodo.py</cite> will become easy to use prescription of best practices.</p>
+</div>
+<div class="section" id="optimize-processing-time-by-skipping-tasks-already-done">
+<h2>Optimize processing time by skipping tasks already done<a class="headerlink" href="#optimize-processing-time-by-skipping-tasks-already-done" title="Permalink to this headline">¶</a></h2>
+<p>You dump your database and convert the data to CSV. It takes minutes,
+but often the input is the same as before. Why to do things already
+done and wait?</p>
+<p>Wrap the conversion into <cite>doit</cite> task and <cite>doit</cite> will automatically
+detect, the input and output are already in sync and complete in
+fraction of a second, when possible.</p>
+</div>
+<div class="section" id="manage-complex-set-of-depending-tasks">
+<h2>Manage complex set of depending tasks<a class="headerlink" href="#manage-complex-set-of-depending-tasks" title="Permalink to this headline">¶</a></h2>
+<p>The system you code shall do many small actions, which are interdependent.</p>
+<p>Split it into small tasks, define (file) dependencies and let <cite>doit</cite>
+do the planning of what shall be processed first and what next.</p>
+<p>Your solution will be clean and modular.</p>
+</div>
+<div class="section" id="speed-up-by-parallel-task-execution">
+<h2>Speed up by parallel task execution<a class="headerlink" href="#speed-up-by-parallel-task-execution" title="Permalink to this headline">¶</a></h2>
+<p>You already have bunch of tasks defined, results are correct, it only takes so
+much time. But wait, you have multicore machine!</p>
+<p>Just ask for parallel processing:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ doit -n 4
+</pre></div>
+</div>
+<p>and <cite>doit</cite> will take care of planning and make all your CPU cores hot.</p>
+<p>No need to rewrite your processing from scratch, properly declared tasks is all
+what you have to provide.</p>
+</div>
+<div class="section" id="extend-your-project-by-doit-features">
+<h2>Extend your project by doit features<a class="headerlink" href="#extend-your-project-by-doit-features" title="Permalink to this headline">¶</a></h2>
+<p>Your own python project would need features of <cite>doit</cite>, but you cannot ask your users to call <cite>doit</cite> on command line?</p>
+<p>Simply integrate <cite>doit</cite> functionality into your own command line tool and nobody will notice where it comes from.</p>
+</div>
+<div class="section" id="create-cross-platform-tool-for-processing-your-stuff">
+<h2>Create cross-platform tool for processing  your stuff<a class="headerlink" href="#create-cross-platform-tool-for-processing-your-stuff" title="Permalink to this headline">¶</a></h2>
+<p>Do you have team members working on MS Windows and others on Linux?</p>
+<p>Scripts are great, but all those small shell differences prevent
+single reusable solution.</p>
+<p>With <cite>dodo.py</cite> and python you are more likely to write the processing
+in cross-platform way. Use <cite>pathlib.Path</cite> and <cite>shutils</cite> magic to
+create directories, move files around, copy them etc.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">doit</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Use Cases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#simplify-cumbersome-command-line-calls">Simplify cumbersome command line calls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#automate-typical-project-related-actions">Automate typical project related actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#share-unified-way-of-doing-things">Share unified way of doing things</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#optimize-processing-time-by-skipping-tasks-already-done">Optimize processing time by skipping tasks already done</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#manage-complex-set-of-depending-tasks">Manage complex set of depending tasks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#speed-up-by-parallel-task-execution">Speed up by parallel task execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#extend-your-project-by-doit-features">Extend your project by doit features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#create-cross-platform-tool-for-processing-your-stuff">Create cross-platform tool for processing  your stuff</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/index.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos/index.html">Howtos</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="../index.html" title="previous chapter">You are welcome to <cite>doit</cite></a></li>
+      <li>Next: <a href="../quickstart/index.html" title="next chapter">Quick Start</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Jan Vlčinský.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/usecases/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

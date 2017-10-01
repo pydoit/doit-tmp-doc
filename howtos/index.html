@@ -1,0 +1,222 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Howtos &#8212; doit 0.30.3 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.30.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Reference Manual" href="../reference/index.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="howtos">
+<h1>Howtos<a class="headerlink" href="#howtos" title="Permalink to this headline">¶</a></h1>
+<p>Topics:</p>
+<ul>
+<li><dl class="first docutils">
+<dt>installation</dt>
+<dd><ul class="first last simple">
+<li>system wide installation on Linux</li>
+<li>system wide installation on Windows</li>
+<li>virtualenv installation (incl. doit) in one step</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first">testing and debugging</p>
+</li>
+<li><p class="first">using pathlib, shellutil and tempfile</p>
+</li>
+<li><p class="first">checking binaries are available</p>
+</li>
+<li><p class="first">simplify cumbersome command line calls</p>
+</li>
+<li><p class="first">handle AWS credentials (use profile set by AWS_DEFAULT_PROFILE)</p>
+</li>
+<li><p class="first">standardize release of your python package</p>
+<blockquote>
+<div><ul class="simple">
+<li>spell, build doc</li>
+<li>test, coverage</li>
+<li>bump version, build dist, upload…</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">sync deep directory of files with</p>
+<blockquote>
+<div><ul>
+<li><p class="first">put/update files in directory of files inteded to by synced to FTP/AWS S3/…</p>
+</li>
+<li><p class="first">put dodo.py into root of the tree</p>
+</li>
+<li><p class="first">provide tasks:</p>
+<blockquote>
+<div><ul class="simple">
+<li>publish</li>
+<li>fetch</li>
+<li>sync (will delete on remote what is locally not present)</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>call from anywhere withing the tree using <cite>-k</cite> (<cite>–seek-file</cite>)</li>
+</ul>
+</li>
+<li><p class="first">multiple files fetch, convert, merge, filter + publish pattern</p>
+</li>
+<li><p class="first">Complete lengthy processing under one second</p>
+</li>
+<li><p class="first">Cross platform ZIP operations</p>
+</li>
+<li><p class="first">Cross platform tar operations</p>
+</li>
+<li><p class="first">Share dodo.py via directory</p>
+</li>
+<li><p class="first">Share doit script via pypi</p>
+</li>
+</ul>
+<div class="section" id="planning-dodo-py">
+<h2>Planning <cite>dodo.py</cite><a class="headerlink" href="#planning-dodo-py" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">clarify requirements</p>
+<blockquote>
+<div><ul class="simple">
+<li>what shall the script do</li>
+<li>why using doit (speed, orchestration, sharing dodo.py with others…)</li>
+<li>environment it will run in (local machine, the same OS, multiple OSes)</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">available tools</p>
+<blockquote>
+<div><ul class="simple">
+<li>what shell commands can help use</li>
+<li>can we fulfill the same with pure python?</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">identify possible inputs, intermediate files, outputs, actions and tasks</p>
+</li>
+<li><p class="first">flowchart: group actions into tasks</p>
+</li>
+<li><p class="first">decide about each action implementation (python-action or cmd-action)</p>
+</li>
+<li><p class="first">draft dodo.py: populate stub <cite>task_*</cite> functions incl. docstrings.</p>
+</li>
+<li><p class="first">write README.rst (to summarize your plan) and cover:</p>
+<blockquote>
+<div><ul class="simple">
+<li>installation<ul>
+<li>method (best use tox based with requirements.txt)</li>
+<li>draft requirements.txt to specify required python packages</li>
+<li>draft list of other shell commands required for the script</li>
+</ul>
+</li>
+<li>tasks visible to the user</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">doit</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../usecases/index.html">Use Cases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/index.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference Manual</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Howtos</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#planning-dodo-py">Planning <cite>dodo.py</cite></a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="../reference/index.html" title="previous chapter">Reference Manual</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Jan Vlčinský.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/howtos/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
