@@ -9,6 +9,8 @@ iPython
 incl
 mammuth
 metadata
+multi
+optimize
 plugins
 python-action
 stateful
