@@ -1,0 +1,19 @@
+# branches with HTML website should never trigger a build
+version: 2
+
+jobs:
+
+  build:
+
+    docker:
+      - image: circleci/python:3.6.1
+
+    working_directory: ~/repo
+
+    branches:
+      only:
+        - none
+
+    steps:
+      - checkout
+
