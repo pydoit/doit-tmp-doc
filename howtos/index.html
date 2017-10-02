@@ -2,10 +2,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Howtos &#8212; doit 0.30.3 documentation</title>
+    <title>How-to &#8212; doit 0.30.3 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -39,8 +39,8 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="howtos">
-<h1>Howtos<a class="headerlink" href="#howtos" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="how-to">
+<h1>How-to<a class="headerlink" href="#how-to" title="Permalink to this headline">¶</a></h1>
 <p>Topics:</p>
 <ul>
 <li><dl class="first docutils">
@@ -55,7 +55,7 @@
 </li>
 <li><p class="first">testing and debugging</p>
 </li>
-<li><p class="first">using pathlib, shellutil and tempfile</p>
+<li><p class="first">using pathlib, shutil and tempfile</p>
 </li>
 <li><p class="first">checking binaries are available</p>
 </li>
@@ -68,7 +68,7 @@
 <div><ul class="simple">
 <li>spell, build doc</li>
 <li>test, coverage</li>
-<li>bump version, build dist, upload…</li>
+<li>bump version, build distribution packages, upload…</li>
 </ul>
 </div></blockquote>
 </li>
@@ -77,7 +77,7 @@
 <div><ul>
 <li><p class="first">put/update files in directory of files intended to by synced to FTP/AWS S3/…</p>
 </li>
-<li><p class="first">put dodo.py into root of the tree</p>
+<li><p class="first">put <cite>dodo.py</cite> into root of the tree</p>
 </li>
 <li><p class="first">provide tasks:</p>
 <blockquote>
@@ -91,7 +91,7 @@
 </ul>
 </div></blockquote>
 <ul class="simple">
-<li>call from anywhere withing the tree using <cite>-k</cite> (<cite>–seek-file</cite>)</li>
+<li>call from anywhere within the tree using <cite>-k</cite> (<cite>–seek-file</cite>)</li>
 </ul>
 </li>
 <li><p class="first">multiple files fetch, convert, merge, filter + publish pattern</p>
@@ -102,9 +102,9 @@
 </li>
 <li><p class="first">Cross platform tar operations</p>
 </li>
-<li><p class="first">Share dodo.py via directory</p>
+<li><p class="first">Share <cite>dodo.py</cite> via directory</p>
 </li>
-<li><p class="first">Share doit script via pypi</p>
+<li><p class="first">Share doit script via <cite>pypi</cite></p>
 </li>
 </ul>
 <div class="section" id="planning-dodo-py">
@@ -114,7 +114,7 @@
 <blockquote>
 <div><ul class="simple">
 <li>what shall the script do</li>
-<li>why using doit (speed, orchestration, sharing dodo.py with others…)</li>
+<li>why using doit (speed, orchestration, sharing <cite>dodo.py</cite> with others…)</li>
 <li>environment it will run in (local machine, the same OS, multiple OS)</li>
 </ul>
 </div></blockquote>
@@ -123,7 +123,7 @@
 <blockquote>
 <div><ul class="simple">
 <li>what shell commands can help use</li>
-<li>can we fulfill the same with pure python?</li>
+<li>can we fulfil the same with pure python?</li>
 </ul>
 </div></blockquote>
 </li>
@@ -133,14 +133,14 @@
 </li>
 <li><p class="first">decide about each action implementation (python-action or cmd-action)</p>
 </li>
-<li><p class="first">draft dodo.py: populate stub <cite>task_*</cite> functions incl. docstrings.</p>
+<li><p class="first">draft <cite>dodo.py</cite>: populate stub <cite>task_*</cite> functions incl. docstrings.</p>
 </li>
 <li><p class="first">write README.rst (to summarize your plan) and cover:</p>
 <blockquote>
 <div><ul class="simple">
 <li>installation<ul>
-<li>method (best use tox based with requirements.txt)</li>
-<li>draft requirements.txt to specify required python packages</li>
+<li>method (best use tox based with <cite>requirements.txt</cite>)</li>
+<li>draft <cite>requirements.txt</cite> to specify required python packages</li>
 <li>draft list of other shell commands required for the script</li>
 </ul>
 </li>
@@ -175,7 +175,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">Concepts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference Manual</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Howtos</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">How-to</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#planning-dodo-py">Planning <cite>dodo.py</cite></a></li>
 </ul>
 </li>

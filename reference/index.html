@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Reference Manual &#8212; doit 0.30.3 documentation</title>
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Howtos" href="../howtos/index.html" />
+    <link rel="next" title="How-to" href="../howtos/index.html" />
     <link rel="prev" title="Concepts" href="../concepts/index.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
@@ -63,19 +63,19 @@ form of functions <cite>task_*</cite> which when called, return dictionaries wit
 <dt id="term-target">target</dt>
 <dd>a file, which can be created by a task.</dd>
 <dt id="term-stateful-file">(stateful) file</dt>
-<dd>any file mentioned in a task declaration as file_dep (task input) or target (task output). doit keeps track of file existency and state (by default using MD5 checksum) between invocations.</dd>
+<dd>any file mentioned in a task declaration as <cite>file_dep</cite> (task input) or <cite>target</cite> (task output). <cite>doit</cite> keeps track of file existence and state (by default using MD5 checksum) between invocations.</dd>
 <dt id="term-file-dependency">file dependency</dt>
-<dd>dependency of a file on another one(s). All files in task target are dependent on files in the task “file_dep”.</dd>
+<dd>dependency of a file on another one(s). All files in task target are dependent on files in the task <cite>file_dep</cite>.</dd>
 <dt id="term-task-dependency">task dependency</dt>
-<dd>dependency of one task on another one(s). Explicit task dependency is set by “task_dep” in task declaration. Each task is implicitly dependent via file dependency, thus the task is dependent on all tasks creating files mentioned in it’s “file_dep”.</dd>
-<dt id="term-task-uptodate-evaluation">task uptodate evaluation</dt>
-<dd>the act of evaluating all (explicit and implicit) task dependencies and task uptodate rules with aim to recognize that the task as a whole is uptodate or not.</dd>
+<dd>dependency of one task on another one(s). Explicit task dependency is set by <cite>task_dep</cite> in task declaration. Each task is implicitly dependent via file dependency, thus the task is dependent on all tasks creating files mentioned in it’s <cite>file_dep</cite>.</dd>
+<dt id="term-task-up-to-date-evaluation">task up to date evaluation</dt>
+<dd>the act of evaluating all (explicit and implicit) task dependencies and task up to date rules with aim to recognize that the task as a whole is up to date or not.</dd>
 <dt id="term-task-execution">task execution</dt>
 <dd>the act of executing all actions of a task.</dd>
 <dt id="term-task-collection">task collection</dt>
 <dd>the act of collecting all task declarations with aim to get list of invocable tasks and targets.</dd>
 <dt id="term-invokable-target">invokable target</dt>
-<dd>the fact, that name of any of files specified in a task’s “targets” can be used to invoke the task. Each file from “targets” is invokable.</dd>
+<dd>the fact, that name of any of files specified in a task’s <cite>targets</cite> can be used to invoke the task. Each file from <cite>targets</cite> is invokable.</dd>
 <dt id="term-python-action">python-action</dt>
 <dd>action defined by means of python function and optionally positional and keyword arguments.</dd>
 <dt id="term-cmd-action">cmd-action</dt>
@@ -85,14 +85,14 @@ form of functions <cite>task_*</cite> which when called, return dictionaries wit
 <dt id="term-cmd-action-list">cmd-action list</dt>
 <dd>cmd-action defined as list of strings and pathlib file names representing shell command arguments. The cmd-action list is invoked in one shell call.</dd>
 <dt id="term-task-main-actions">(task) main actions</dt>
-<dd>actions mentioned in task declaration under key “actions”, defining the activity creating task results.</dd>
+<dd>actions mentioned in task declaration under key <cite>actions</cite>, defining the activity creating task results.</dd>
 <dt id="term-task-clean-actions">(task) clean actions</dt>
-<dd>actions mentioned in task declaration under key “clean”, defining the activity cleaning task results.</dd>
-<dt id="term-task-uptodate-actions">(task) uptodate actions</dt>
-<dd>actions mentioned in task declaration under key “uptodate”, defining the activity determining, if the task is uptodate.</dd>
+<dd>actions mentioned in task declaration under key <cite>clean</cite>, defining the activity cleaning task results.</dd>
+<dt id="term-task-up-to-date-actions">(task) up to date actions</dt>
+<dd>actions mentioned in task declaration under key <cite>uptodate</cite>, defining the activity determining, if the task is up to date.</dd>
 <dt id="term-result-database">result database</dt>
-<dd>database persisting status of last task execution incl. files from all “file_dep” and “targets” lists.</dd>
-<dt id="term-db-backend">DB-backend</dt>
+<dd>database persisting status of last task execution incl. files from all <cite>file_dep</cite> and <cite>targets</cite> lists.</dd>
+<dt id="term-db-backend">DB-Backend</dt>
 <dd>specific technology used to serialize data in result database.</dd>
 <dt id="term-command-run">command run</dt>
 <dd>doit subcommand used to invoke main task actions</dd>
@@ -136,13 +136,13 @@ form of functions <cite>task_*</cite> which when called, return dictionaries wit
 <h3><cite>DOIT_CONFIG</cite> global variable<a class="headerlink" href="#doit-config-global-variable" title="Permalink to this headline">¶</a></h3>
 <p>describe all keys usable in <cite>DOIT_CONFIG</cite></p>
 <ul class="simple">
-<li>default_tasks</li>
-<li>check_file_uptodate (custom file uptodate checker)</li>
-<li>backend</li>
-<li>dep_file</li>
-<li>verbosity</li>
-<li>reporter</li>
-<li>minversion</li>
+<li><cite>default_tasks</cite></li>
+<li><cite>check_file_uptodate</cite> (custom file up to date checker)</li>
+<li><cite>backend</cite></li>
+<li><cite>dep_file</cite></li>
+<li><cite>verbosity</cite></li>
+<li><cite>reporter</cite></li>
+<li><cite>minversion</cite></li>
 </ul>
 </div>
 <div class="section" id="doit-cfg-configuration-file">
@@ -173,24 +173,24 @@ form of functions <cite>task_*</cite> which when called, return dictionaries wit
 <ul class="simple">
 <li>cmd-action as string<ul>
 <li>simple string (no interpolation)</li>
-<li>string with interpolated kwargs</li>
+<li>string with interpolated keyword arguments</li>
 <li><cite>CmdAction(cmd_string_builder_fun)</cite><ul>
 <li>without any argument</li>
-<li>with kwargs (dependencies, changed, targets plus custom ones)</li>
+<li>with keyword arguments (<cite>dependencies</cite>, <cite>changed</cite>, <cite>targets</cite> plus custom ones)</li>
 </ul>
 </li>
 <li>parsed cmd-action (cmd-action as string)</li>
 </ul>
 </li>
 <li>python-action<ul>
-<li>just function name (no explicit kwargs)<ul>
-<li>not using implicit kwargs</li>
-<li>using implicit kwargs</li>
+<li>just function name (no explicit keyword argument)<ul>
+<li>not using implicit keyword arguments</li>
+<li>using implicit keyword arguments</li>
 </ul>
 </li>
-<li>function name with args and kwargs<ul>
-<li>not using implicit kwargs</li>
-<li>using implicit kwargs</li>
+<li>function name with positional and keyword arguments<ul>
+<li>not using implicit keyword arguments</li>
+<li>using implicit keyword arguments</li>
 </ul>
 </li>
 </ul>
@@ -206,7 +206,7 @@ form of functions <cite>task_*</cite> which when called, return dictionaries wit
 </ul>
 </div>
 <div class="section" id="getargs-read-values-calculated-by-other-tasks">
-<h2>getargs: read values calculated by other tasks<a class="headerlink" href="#getargs-read-values-calculated-by-other-tasks" title="Permalink to this headline">¶</a></h2>
+<h2><cite>getargs</cite>: read values calculated by other tasks<a class="headerlink" href="#getargs-read-values-calculated-by-other-tasks" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="action-usage-scenarios">
 <h2>action usage scenarios<a class="headerlink" href="#action-usage-scenarios" title="Permalink to this headline">¶</a></h2>
@@ -214,14 +214,14 @@ form of functions <cite>task_*</cite> which when called, return dictionaries wit
 <ul class="simple">
 <li>main actions</li>
 <li>clean actions</li>
-<li>uptodate actions</li>
+<li>up to date actions</li>
 <li>??? some more?</li>
 </ul>
 </div>
 <div class="section" id="doit-invocation">
 <h2><cite>doit</cite> invocation<a class="headerlink" href="#doit-invocation" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><cite>doit</cite> cli</li>
+<li><cite>doit</cite> CLI</li>
 <li><cite>$ python -m doit</cite></li>
 <li>from iPython</li>
 <li>embed into another python code</li>
@@ -241,17 +241,17 @@ form of functions <cite>task_*</cite> which when called, return dictionaries wit
 <div class="section" id="task-declaration-parameters">
 <h2>Task declaration parameters<a class="headerlink" href="#task-declaration-parameters" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>name</li>
-<li>basename</li>
-<li>actions</li>
-<li>file_dep</li>
-<li>targets</li>
-<li>task_dep</li>
-<li>clean</li>
-<li>uptodate</li>
-<li>title</li>
-<li>doc</li>
-<li>verbosity</li>
+<li><cite>name</cite></li>
+<li><cite>basename</cite></li>
+<li><cite>actions</cite></li>
+<li><cite>file_dep</cite></li>
+<li><cite>targets</cite></li>
+<li><cite>task_dep</cite></li>
+<li><cite>clean</cite></li>
+<li><cite>uptodate</cite></li>
+<li><cite>title</cite></li>
+<li><cite>doc</cite></li>
+<li><cite>verbosity</cite></li>
 </ul>
 </div>
 <div class="section" id="task-names">
@@ -282,25 +282,25 @@ form of functions <cite>task_*</cite> which when called, return dictionaries wit
 <li>explicit task dependency</li>
 </ul>
 </div>
-<div class="section" id="task-uptodate-status">
-<h2>Task uptodate status<a class="headerlink" href="#task-uptodate-status" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="task-up-to-date-status">
+<h2>Task up to date status<a class="headerlink" href="#task-up-to-date-status" title="Permalink to this headline">¶</a></h2>
 <ul>
-<li><p class="first">when is task uptodate (rules to determine it)
+<li><p class="first">when is task up to date (rules to determine it)
 - all following conditions must be true</p>
 <blockquote>
 <div><ul class="simple">
-<li>each file from file_dep is uptodate at the moment of task evaluation</li>
-<li>each file from targets is uptodate (last execution was successful)</li>
-<li>calculated uptodate is “OK”</li>
+<li>each file from <cite>file_dep</cite> is up to date at the moment of task evaluation</li>
+<li>each file from <cite>targets</cite> is up to date (last execution was successful)</li>
+<li>calculated up to date is “OK”</li>
 </ul>
 </div></blockquote>
 </li>
-<li><p class="first">calculating file uptodate status</p>
+<li><p class="first">calculating file up to date status</p>
 </li>
-<li><p class="first">calculating task uptodate status</p>
+<li><p class="first">calculating task up to date status</p>
 <blockquote>
 <div><ul class="simple">
-<li>all file_dep are uptodate</li>
+<li>all <cite>file_dep</cite> are up to date</li>
 </ul>
 </div></blockquote>
 </li>
@@ -376,7 +376,7 @@ handy. For that reason they are included in <cite>doit</cite>.</p>
 <li class="toctree-l2"><a class="reference internal" href="#dodo-py-file"><cite>dodo.py</cite> file</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#action-definitions">action definitions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#actions-calculating-values">actions calculating values</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#getargs-read-values-calculated-by-other-tasks">getargs: read values calculated by other tasks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#getargs-read-values-calculated-by-other-tasks"><cite>getargs</cite>: read values calculated by other tasks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#action-usage-scenarios">action usage scenarios</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#doit-invocation"><cite>doit</cite> invocation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#doit-command-line-interface"><cite>doit</cite> command line interface</a></li>
@@ -384,7 +384,7 @@ handy. For that reason they are included in <cite>doit</cite>.</p>
 <li class="toctree-l2"><a class="reference internal" href="#task-names">Task names</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#task-selection">Task selection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#task-dependencies">Task dependencies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#task-uptodate-status">Task uptodate status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#task-up-to-date-status">Task up to date status</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#complex-dependency-options">Complex dependency options</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#reporter-reporting-progress-and-result">reporter: reporting progress and result</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#db-backend">DB-Backend</a></li>
@@ -392,7 +392,7 @@ handy. For that reason they are included in <cite>doit</cite>.</p>
 <li class="toctree-l2"><a class="reference internal" href="#tools-embedded-in-doit">Tools embedded in <cite>doit</cite></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../howtos/index.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos/index.html">How-to</a></li>
 </ul>
 
 <div class="relations">
@@ -400,7 +400,7 @@ handy. For that reason they are included in <cite>doit</cite>.</p>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
       <li>Previous: <a href="../concepts/index.html" title="previous chapter">Concepts</a></li>
-      <li>Next: <a href="../howtos/index.html" title="next chapter">Howtos</a></li>
+      <li>Next: <a href="../howtos/index.html" title="next chapter">How-to</a></li>
   </ul></li>
 </ul>
 </div>

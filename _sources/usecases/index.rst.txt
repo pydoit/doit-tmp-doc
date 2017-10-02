@@ -4,7 +4,7 @@ Use Cases
 
 Here are some use cases, where `doit` can help you with automation of your tasks.
 
-.. todo:: later add links to related tutorials and howtos. But be careful not to distract too much.
+.. todo:: later add links to related tutorials and how to. But be careful not to distract too much.
 
 
 Simplify cumbersome command line calls
@@ -119,4 +119,4 @@ single reusable solution.
 
 With `dodo.py` and python you are more likely to write the processing
 in cross-platform way. Use `pathlib.Path` and `shutils` magic to
-create directories, move files around, copy them etc.
+create directories, move files around, copy them, etc.

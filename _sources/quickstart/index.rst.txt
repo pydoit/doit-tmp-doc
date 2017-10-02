@@ -181,7 +181,7 @@ Ask `doit` to do the work again::
     -- compress
 
 Almost zero execution time and `"--"` in front of task name (instead of `"."`) tell us, `doit` saw
-no need to repeat the task, whose results are already uptodate.
+no need to repeat the task, whose results are already up to date.
 
 This will hold true as long as content of input and output files do not change (checked by MD5
 checksum).
@@ -225,7 +225,7 @@ and to clean is easy::
     python_help - removing file 'python.help'
 
 If you wonder why tasks `python_help` and `doit_help` are always rerun, the reason is, these tasks
-do not have "file_dep" so they are always considered outdated.
+do not have `file_dep` so they are always considered outdated.
 
 Python defined actions
 ======================

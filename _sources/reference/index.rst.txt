@@ -1,3 +1,7 @@
+.. spelling::
+
+    uptodate
+
 ================
 Reference Manual
 ================
@@ -29,16 +33,16 @@ Terms and definitions
         a file, which can be created by a task.
 
     (stateful) file
-        any file mentioned in a task declaration as file_dep (task input) or target (task output). doit keeps track of file existency and state (by default using MD5 checksum) between invocations.
+        any file mentioned in a task declaration as `file_dep` (task input) or `target` (task output). `doit` keeps track of file existence and state (by default using MD5 checksum) between invocations.
 
     file dependency
-        dependency of a file on another one(s). All files in task target are dependent on files in the task "file_dep".
+        dependency of a file on another one(s). All files in task target are dependent on files in the task `file_dep`.
 
     task dependency
-        dependency of one task on another one(s). Explicit task dependency is set by "task_dep" in task declaration. Each task is implicitly dependent via file dependency, thus the task is dependent on all tasks creating files mentioned in it's "file_dep".
+        dependency of one task on another one(s). Explicit task dependency is set by `task_dep` in task declaration. Each task is implicitly dependent via file dependency, thus the task is dependent on all tasks creating files mentioned in it's `file_dep`.
 
-    task uptodate evaluation
-        the act of evaluating all (explicit and implicit) task dependencies and task uptodate rules with aim to recognize that the task as a whole is uptodate or not.
+    task up to date evaluation
+        the act of evaluating all (explicit and implicit) task dependencies and task up to date rules with aim to recognize that the task as a whole is up to date or not.
 
     task execution
         the act of executing all actions of a task.
@@ -47,7 +51,7 @@ Terms and definitions
         the act of collecting all task declarations with aim to get list of invocable tasks and targets.
 
     invokable target
-        the fact, that name of any of files specified in a task's "targets" can be used to invoke the task. Each file from "targets" is invokable.
+        the fact, that name of any of files specified in a task's `targets` can be used to invoke the task. Each file from `targets` is invokable.
 
     python-action
         action defined by means of python function and optionally positional and keyword arguments.
@@ -62,18 +66,18 @@ Terms and definitions
         cmd-action defined as list of strings and pathlib file names representing shell command arguments. The cmd-action list is invoked in one shell call.
 
     (task) main actions
-        actions mentioned in task declaration under key "actions", defining the activity creating task results.
+        actions mentioned in task declaration under key `actions`, defining the activity creating task results.
 
     (task) clean actions
-        actions mentioned in task declaration under key "clean", defining the activity cleaning task results.
+        actions mentioned in task declaration under key `clean`, defining the activity cleaning task results.
 
-    (task) uptodate actions
-        actions mentioned in task declaration under key "uptodate", defining the activity determining, if the task is uptodate.
+    (task) up to date actions
+        actions mentioned in task declaration under key `uptodate`, defining the activity determining, if the task is up to date.
 
     result database
-        database persisting status of last task execution incl. files from all "file_dep" and "targets" lists.
+        database persisting status of last task execution incl. files from all `file_dep` and `targets` lists.
 
-    DB-backend
+    DB-Backend
         specific technology used to serialize data in result database.
 
     command run
@@ -108,7 +112,7 @@ Following chart explains simplified task execution life-cycle.
     -->  evaluate tasks
     note right: `doit run` continues
     -->  execute tasks
-    note right: only tasks not uptodate
+    note right: only tasks not up to date
     --> (*)
 
 Configuration options
@@ -131,13 +135,13 @@ Describe:
 -----------------------------
 describe all keys usable in `DOIT_CONFIG`
 
-- default_tasks
-- check_file_uptodate (custom file uptodate checker)
-- backend
-- dep_file
-- verbosity
-- reporter
-- minversion
+- `default_tasks`
+- `check_file_uptodate` (custom file up to date checker)
+- `backend`
+- `dep_file`
+- `verbosity`
+- `reporter`
+- `minversion`
 
 `doit.cfg` configuration file
 -----------------------------
@@ -166,25 +170,25 @@ action definitions
 - cmd-action as string
 
   - simple string (no interpolation)
-  - string with interpolated kwargs
+  - string with interpolated keyword arguments
   - `CmdAction(cmd_string_builder_fun)`
 
     - without any argument
-    - with kwargs (dependencies, changed, targets plus custom ones)
+    - with keyword arguments (`dependencies`, `changed`, `targets` plus custom ones)
 
   - parsed cmd-action (cmd-action as string)
 
 - python-action
 
-  - just function name (no explicit kwargs)
+  - just function name (no explicit keyword argument)
 
-    - not using implicit kwargs
-    - using implicit kwargs
+    - not using implicit keyword arguments
+    - using implicit keyword arguments
 
-  - function name with args and kwargs
+  - function name with positional and keyword arguments
 
-    - not using implicit kwargs
-    - using implicit kwargs
+    - not using implicit keyword arguments
+    - using implicit keyword arguments
 
 actions calculating values
 ==========================
@@ -193,8 +197,8 @@ Actions can calculate values usable by other tasks.
 - how to calculate and store value by python-action
 - how to calculate and store value by cmd-action (`CmdAction` with `save_out`)
 
-getargs: read values calculated by other tasks
-==============================================
+`getargs`: read values calculated by other tasks
+================================================
 
 .. todo: as in http://pydoit.org/dependencies.html#getargs No discussion about saving values, just
     refer to related section.
@@ -206,13 +210,13 @@ When can be actions used:
 
 - main actions
 - clean actions
-- uptodate actions
+- up to date actions
 - ??? some more?
 
 `doit` invocation
 =================
 
-- `doit` cli
+- `doit` CLI
 - `$ python -m doit`
 - from iPython
 - embed into another python code
@@ -229,17 +233,17 @@ When can be actions used:
 Task declaration parameters
 ===========================
 
-- name
-- basename
-- actions
-- file_dep
-- targets
-- task_dep
-- clean
-- uptodate
-- title
-- doc
-- verbosity
+- `name`
+- `basename`
+- `actions`
+- `file_dep`
+- `targets`
+- `task_dep`
+- `clean`
+- `uptodate`
+- `title`
+- `doc`
+- `verbosity`
 
 Task names
 ==========
@@ -266,23 +270,24 @@ Task dependencies
 
 - explicit task dependency
 
-Task uptodate status
-====================
+Task up to date status
+======================
 
-- when is task uptodate (rules to determine it)
+- when is task up to date (rules to determine it)
   - all following conditions must be true
 
-    - each file from file_dep is uptodate at the moment of task evaluation
-    - each file from targets is uptodate (last execution was successful)
-    - calculated uptodate is "OK"
+    - each file from `file_dep` is up to date at the moment of task evaluation
+    - each file from `targets` is up to date (last execution was successful)
+    - calculated up to date is "OK"
 
-- calculating file uptodate status
-- calculating task uptodate status
+- calculating file up to date status
+- calculating task up to date status
 
-    - all file_dep are uptodate
+    - all `file_dep` are up to date
 
 Complex dependency options
 ==========================
+
 .. todo:: explain, tasks can be declared also later on during execution.
 
 reporter: reporting progress and result
