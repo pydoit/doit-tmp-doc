@@ -161,8 +161,9 @@ declaration and provide it with list of target files names, in this case just on
 </pre></div>
 </div>
 <p>The string of <cite>cmd-action</cite> is (always) interpolated with keyword <cite>targets</cite> (there are
-more such keywords). The value for <cite>targets</cite> is takes from task declaration and provided as space
-delimited list of file names (so it is single string).</p>
+more such keywords). The value for <cite>%(targets)s</cite> is taken from task declaration
+value (list) converted to space delimited list of file names (so the result is
+a string).</p>
 </div>
 <div class="section" id="who-is-going-to-clean-that">
 <h2>Who is going to clean that?<a class="headerlink" href="#who-is-going-to-clean-that" title="Permalink to this headline">¶</a></h2>

@@ -105,8 +105,9 @@ Checking content of the `cave.txt` we shall see::
     parametrized a
 
 The string of `cmd-action` is (always) interpolated with keyword `targets` (there are
-more such keywords). The value for `targets` is takes from task declaration and provided as space
-delimited list of file names (so it is single string).
+more such keywords). The value for `%(targets)s` is taken from task declaration
+value (list) converted to space delimited list of file names (so the result is
+a string).
 
 Who is going to clean that?
 ===========================
