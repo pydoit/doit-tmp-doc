@@ -93,7 +93,7 @@ Your solution will be clean and modular.
 Speed up by parallel task execution
 ===================================
 You already have bunch of tasks defined, results are correct, it only takes so
-much time. But wait, you have multicore machine!
+much time. But wait, you have multi-core machine!
 
 Just ask for parallel processing::
 

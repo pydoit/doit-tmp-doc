@@ -83,7 +83,7 @@ The file `cave.txt` shall be again present and shall have the same content as be
 Parametrize name of target file
 ================================
 
-Hardcoded file names are not always practical. Let's add `"targets"` keyword into task
+Hard coded file names are not always practical. Let's add `"targets"` keyword into task
 declaration and provide it with list of target files names, in this case just one.
 
 Also modify the string to be echoed (adding "parametrized") to see our fingerprint in the new result.

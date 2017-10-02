@@ -2,6 +2,10 @@ from pathlib import Path
 
 from doitpy import docs
 
+DOIT_CONFIG = {
+    "default_tasks": ["sphinx"]
+}
+
 
 DOC_ROOT = Path('docs')
 DOC_BUILD_PATH = DOC_ROOT / '_build' / 'html'
