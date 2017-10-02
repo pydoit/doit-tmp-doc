@@ -1,0 +1,84 @@
+# Python CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-python/ for more details
+#
+version: 2
+
+jobs:
+
+  build:
+
+    docker:
+      - image: circleci/python:3.6.1
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      # Download and cache PyPI dependencies
+      - restore_cache:
+          key: v1-pypi_req-{{ checksum "requirements.txt" }}
+
+      - run:
+          name: python VENV
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install --upgrade pip setuptools wheel
+            pip install -r requirements.txt
+
+      - save_cache:
+          paths:
+            - ./venv
+          key: v1-pypi_req-{{ checksum "requirements.txt" }}
+
+
+
+
+      - run:
+          name: create folder with site content
+          command: |
+            mkdir -p docs/_build/html
+
+
+      # get GIT repo from cache
+      - restore_cache:
+          key: v1-build-repo
+
+      # sync local repo with origin
+      - run:
+          name: setup gh-pages branch
+          command: |
+            cd docs/_build/html
+            if ! [ -d ".git" ] ; then
+                 git clone --no-checkout --branch gh-pages git@github.com:pydoit/doit-tmp-doc.git .
+            fi
+            git fetch origin gh-pages
+            git reset --soft origin/gh-pages
+
+
+      # BUILD
+      - run:
+          name: build docs
+          command: |
+            . venv/bin/activate
+            cd docs
+            make html
+
+
+      # PUSH changes and update site
+      - run:
+          name: commit
+          command: |
+            cd docs/_build/html
+            git add --all
+            git commit -m "update site"
+            git push origin gh-pages
+
+
+      - save_cache:
+          paths:
+            - ./docs/_build/html/.git
+          key: v1-build-repo
+
