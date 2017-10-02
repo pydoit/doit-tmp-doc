@@ -151,6 +151,6 @@ latex_documents = [
 ]
 
 # Spelling
-spelling_lang="en-gb"
+spelling_lang="en_GB"
 
 spelling_word_list_filename="dictionary.txt"
