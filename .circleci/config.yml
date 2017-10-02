@@ -89,9 +89,10 @@ jobs:
           command: |
             cd docs/_build/html
             git add --all
-            git commit -m "update site"
-            git push origin gh-pages
-
+            if ! [ git diff --cached --quiet --exit-code ] ; then
+               git commit -m "update site"
+               git push origin gh-pages
+            fi
 
       - save_cache:
           paths:
