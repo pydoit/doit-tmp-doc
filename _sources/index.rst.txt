@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 =========================
-welcome to `doit`
+You are welcome to `doit`
 =========================
 
 tasks => {doit + shell + python} => done
