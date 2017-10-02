@@ -22,7 +22,7 @@ jobs:
 
       - run:
           name: install apt dependencies
-          command: sudo apt-get install enchant hunspell-en-gb
+          command: sudo apt-get install enchant myspell-en-gb
 
       # Download and cache PyPI dependencies
       - restore_cache:
