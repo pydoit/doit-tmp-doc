@@ -56,7 +56,8 @@ jobs:
             fi
             git fetch origin gh-pages
             git reset --soft origin/gh-pages
-
+            git config user.email "schettino72@gmail.com"
+            git config user.name "Eduardo Schettino"
 
       # BUILD
       - run:
