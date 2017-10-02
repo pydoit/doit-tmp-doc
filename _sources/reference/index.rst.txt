@@ -83,7 +83,7 @@ Terms and definitions
         doit subcommand used to invoke clean task actions
 
     command list
-        doit subcommand used to list avaialble tasks and subtasks
+        doit subcommand used to list available tasks and subtasks
 
     command ignore
         doit subcommand used to temporarily disable check of a task results.
@@ -94,7 +94,7 @@ Terms and definitions
 Task execution life-cycle
 =========================
 
-Following chart explains simplified task execution lifecycle.
+Following chart explains simplified task execution life-cycle.
 
 .. uml::
     :caption: Task execution life-cycle
@@ -102,7 +102,7 @@ Following chart explains simplified task execution lifecycle.
     :align: center
 
     (*) -->  "declare tasks"
-    note right: write dodo.py,\ntask_* functions returning dicts
+    note right: write dodo.py,\n task_* functions returning dicts
     -->  collect tasks
     note right: execute `doit list`\nor first part of `doit run`
     -->  evaluate tasks
@@ -129,7 +129,7 @@ Describe:
 
 `DOIT_CONFIG` global variable
 -----------------------------
-desribe all keys usable in `DOIT_CONFIG`
+describe all keys usable in `DOIT_CONFIG`
 
 - default_tasks
 - check_file_uptodate (custom file uptodate checker)
@@ -149,7 +149,7 @@ Describe:
 Configuration using environmental variables
 -------------------------------------------
 
-What environmantal variables can be used.
+What environmental variables can be used.
 
 Configuration on task level
 ---------------------------
@@ -273,7 +273,7 @@ Task uptodate status
   - all following conditions must be true
 
     - each file from file_dep is uptodate at the moment of task evaluation
-    - each file from targets is uptodate (last execution was succesful)
+    - each file from targets is uptodate (last execution was successful)
     - calculated uptodate is "OK"
 
 - calculating file uptodate status
@@ -302,8 +302,8 @@ DB-Backend
 - develop plugins/libraries
 - custom reporter
 
-Tools embeded in `doit`
-=======================
+Tools embedded in `doit`
+========================
 
 There are tools, which are not essential to core of `doit` processing engine, but come very often
 handy. For that reason they are included in `doit`.

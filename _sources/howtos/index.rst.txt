@@ -24,7 +24,7 @@ Topics:
 
 - sync deep directory of files with
 
-    - put/update files in directory of files inteded to by synced to FTP/AWS S3/...
+    - put/update files in directory of files intended to by synced to FTP/AWS S3/...
     - put dodo.py into root of the tree
     - provide tasks:
 
@@ -48,7 +48,7 @@ Planning `dodo.py`
 
     - what shall the script do
     - why using doit (speed, orchestration, sharing dodo.py with others...)
-    - environment it will run in (local machine, the same OS, multiple OSes)
+    - environment it will run in (local machine, the same OS, multiple OS)
 
 - available tools
 
