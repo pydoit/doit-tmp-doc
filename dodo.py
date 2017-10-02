@@ -16,7 +16,20 @@ def task_docs():
     """
     doc_files = list(DOC_ROOT.rglob('*.rst'))
     doc_files.append(Path('README.rst'))
-    yield docs.spell(doc_files, 'docs/dictionary.txt')
+    # yield docs.spell(doc_files, 'docs/dictionary.txt')
     sphinx_opts = "-A include_analytics=1 -A include_donate=1"
     yield docs.sphinx(DOC_ROOT, DOC_BUILD_PATH, sphinx_opts=sphinx_opts,
                       task_dep=['spell'])
+
+def task_spell():
+    """Spell Sphinx based doce using builtin spell checker
+
+    The spell checker is provided via sphinxcontrib.spelling
+    """
+    return {
+        "actions": [
+            ("sphinx-build -b spelling "
+             "-d docs/_build/doctrees docs docs/_build/spelling")
+        ],
+        "verbosity": 2,
+    }

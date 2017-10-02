@@ -2,3 +2,4 @@ doit
 doit-py
 sphinx
 sphinxcontrib-plantuml
+sphinxcontrib-spelling
