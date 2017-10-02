@@ -22,7 +22,7 @@ jobs:
 
       - run:
           name: install apt dependencies
-          command: apt-get install enchant
+          command: sudo apt-get install enchant
 
       # Download and cache PyPI dependencies
       - restore_cache:
