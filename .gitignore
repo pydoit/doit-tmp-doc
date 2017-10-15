@@ -1,4 +1,6 @@
+*.pyc
 .doit.*
 .tox
 __pycache__
 docs/_build
+docs_build
